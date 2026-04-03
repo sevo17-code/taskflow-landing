@@ -1,29 +1,44 @@
 # TaskFlow Landing
 
-TaskFlow is now organized as a small multi-stack workspace so you can choose the version you want to keep building or publish.
+TaskFlow is a polished multi-stack workspace that includes:
 
-## Project Map
+- a static HTML/CSS/JS version
+- a React + Tailwind dashboard
+- a FastAPI starter backend
+
+## Live Demo
+
+React site on GitHub Pages:
+
+- `https://sevo17-code.github.io/taskflow-landing/`
+
+If the link does not open yet, wait for the GitHub Actions deployment workflow to finish after pushing to `main`.
+
+## Project Structure
 
 - `TaskFlow-landing.html`
-  Static vanilla version using plain HTML, CSS, and JavaScript
+  Static version that opens directly in the browser
 - `style.css`
   Styles for the static version
 - `app.js`
   Interactions for the static version
 - `react-tailwind/`
-  Modern React + Tailwind version with a component-based dashboard
+  React + Tailwind frontend version
 - `fastapi/`
-  Python + FastAPI starter API for tasks, board cards, and pomodoro settings
+  Python + FastAPI backend starter
+- `.github/workflows/deploy-pages.yml`
+  Automatic deployment of the React app to GitHub Pages
 
-## What Was Improved
+## Key Improvements
 
-- The original one-file page is already split into `HTML`, `CSS`, and `JS`
-- The static version keeps language and last-open page in `localStorage`
-- A React + Tailwind implementation was added for easier scaling
-- A FastAPI backend starter was added so the project can grow beyond local browser storage
-- A root `.gitignore` was added so the folder is cleaner for GitHub
+- Split the old single-file page into separate files
+- Added a cleaner React implementation with Arabic/English switching
+- Added task deletion, clear-all, and restore-starter-list actions
+- Preserved local state with `localStorage`
+- Added a FastAPI API starter for future backend integration
+- Added GitHub Pages deployment for the React app
 
-## How To Use
+## Run Locally
 
 ### Static Version
 
@@ -34,19 +49,15 @@ Open `TaskFlow-landing.html` directly in the browser.
 1. Open the `react-tailwind` folder
 2. Run `npm install`
 3. Run `npm run dev`
+4. Open `http://localhost:5173`
 
 ### FastAPI
 
 1. Open the `fastapi` folder
-2. Create a virtual environment if you want
-3. Run `pip install -r requirements.txt`
-4. Start the server with `uvicorn main:app --reload`
+2. Run `pip install -r requirements.txt`
+3. Run `uvicorn main:app --reload`
+4. Open `http://127.0.0.1:8000/docs`
 
-Then open:
+## Suggested Next Upgrade
 
-- API root: `http://127.0.0.1:8000/`
-- Swagger docs: `http://127.0.0.1:8000/docs`
-
-## Suggested Next Step
-
-If you want, the next strong move is to connect the React frontend to the FastAPI endpoints instead of keeping the React state local only.
+The next strong step is connecting the React frontend to the FastAPI endpoints instead of keeping the React data local-only.

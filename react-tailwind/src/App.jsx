@@ -4,6 +4,7 @@ const TASKS_KEY = "tf-react-tasks";
 const BOARD_KEY = "tf-react-board";
 const TIMER_KEY = "tf-react-timer";
 const LANG_KEY = "tf-react-lang";
+const VIEW_KEY = "tf-react-view";
 
 const COLUMNS = ["backlog", "building", "launched"];
 const MODES = ["focus", "short", "long"];
@@ -127,6 +128,10 @@ function initialLang() {
   return localStorage.getItem(LANG_KEY) === "ar" ? "ar" : "en";
 }
 
+function initialView() {
+  return localStorage.getItem(VIEW_KEY) || "overview";
+}
+
 function starterTasks(lang) {
   const data = {
     en: [
@@ -208,7 +213,7 @@ function formatTime(totalSeconds) {
 
 function App() {
   const [lang, setLang] = useState(initialLang);
-  const [view, setView] = useState("overview");
+  const [view, setView] = useState(initialView);
   const [tasks, setTasks] = useState(() => readState(TASKS_KEY, starterTasks(initialLang())));
   const [board, setBoard] = useState(() => readState(BOARD_KEY, starterBoard(initialLang())));
   const [timer, setTimer] = useState(() => readState(TIMER_KEY, defaultTimer()));
@@ -239,10 +244,24 @@ function App() {
   }, [timer]);
 
   useEffect(() => {
+    localStorage.setItem(VIEW_KEY, view);
+  }, [view]);
+
+  useEffect(() => {
     localStorage.setItem(LANG_KEY, lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = isArabic ? "rtl" : "ltr";
   }, [isArabic, lang]);
+
+  useEffect(() => {
+    const titleMap = {
+      overview: t.views.overview,
+      board: t.views.board,
+      focus: t.views.focus,
+    };
+
+    document.title = `TaskFlow | ${titleMap[view]}`;
+  }, [t, view]);
 
   useEffect(() => {
     if (!running) {

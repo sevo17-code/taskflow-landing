@@ -112,8 +112,14 @@ def root() -> dict[str, str]:
     return {
         "message": "TaskFlow FastAPI is running",
         "docs": "/docs",
+        "health": "/health",
         "dashboard_endpoint": "/api/dashboard",
     }
+
+
+@app.get("/health")
+def health_check() -> dict[str, str]:
+    return {"status": "ok"}
 
 
 @app.get("/api/dashboard")
