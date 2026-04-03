@@ -13,6 +13,8 @@ React site on GitHub Pages:
 - `https://sevo17-code.github.io/taskflow-landing/`
 
 If the link does not open yet, wait for the GitHub Actions deployment workflow to finish after pushing to `main`.
+If this is the first deployment, open `Settings > Pages` in the repository and make sure the source is set to `GitHub Actions`.
+Also make sure the repository is public if you want GitHub Pages to serve it publicly.
 
 ## Project Structure
 
