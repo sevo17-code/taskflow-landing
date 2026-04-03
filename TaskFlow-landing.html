@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TaskFlow landing page with to-do management, a kanban board, and a pomodoro timer.">
+<title>TaskFlow — Task Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="bg-mesh">
+  <div class="mesh-orb orb-a"></div>
+  <div class="mesh-orb orb-b"></div>
+  <div class="mesh-orb orb-c"></div>
+</div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <div class="logo-name">Task<em>Flow</em></div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="switchPage('todo',this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        <span class="en">To-Do</span><span class="ar" style="display:none">المهام</span>
+        <span class="nav-badge" id="todo-badge">0</span>
+      </button>
+      <button class="nav-item" onclick="switchPage('kanban',this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="18"></rect><rect x="10" y="3" width="5" height="11"></rect><rect x="17" y="3" width="4" height="7"></rect></svg>
+        <span class="en">Kanban</span><span class="ar" style="display:none">كانبان</span>
+      </button>
+      <button class="nav-item" onclick="switchPage('pomodoro',this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span class="en">Pomodoro</span><span class="ar" style="display:none">بومودورو</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="lang-btn" onclick="toggleLang()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <span id="lang-label">العربية</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="page active" id="page-todo">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
+          <div>
+            <div class="page-title"><span class="en">My Tasks</span><span class="ar" style="display:none">مهامي</span></div>
+            <div class="page-subtitle"><span class="en">Manage and track your work</span><span class="ar" style="display:none">تنظيم ومتابعة مهامك</span></div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="openAddTodo()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span class="en">Add Task</span><span class="ar" style="display:none">إضافة مهمة</span>
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-icon si-v"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></div>
+          <div class="stat-val cv" id="stat-total">0</div>
+          <div class="stat-label"><span class="en">Total</span><span class="ar" style="display:none">الكل</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon si-g"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+          <div class="stat-val cg" id="stat-done">0</div>
+          <div class="stat-label"><span class="en">Done</span><span class="ar" style="display:none">مكتمل</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon si-y"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <div class="stat-val cy" id="stat-pending">0</div>
+          <div class="stat-label"><span class="en">Pending</span><span class="ar" style="display:none">قيد التنفيذ</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon si-r"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+          <div class="stat-val cr" id="stat-high">0</div>
+          <div class="stat-label"><span class="en">High Priority</span><span class="ar" style="display:none">أولوية عالية</span></div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <button class="fp active" onclick="setFilter('all',this)"><span class="en">All</span><span class="ar" style="display:none">الكل</span></button>
+        <button class="fp" onclick="setFilter('pending',this)"><span class="en">Pending</span><span class="ar" style="display:none">قيد التنفيذ</span></button>
+        <button class="fp" onclick="setFilter('done',this)"><span class="en">Done</span><span class="ar" style="display:none">مكتمل</span></button>
+        <button class="fp" onclick="setFilter('high',this)"><span class="en">High Priority</span><span class="ar" style="display:none">أولوية عالية</span></button>
+      </div>
+      <div class="todo-list" id="todo-list"></div>
+    </div>
+
+    <div class="page" id="page-kanban">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="18"></rect><rect x="10" y="3" width="5" height="11"></rect><rect x="17" y="3" width="4" height="7"></rect></svg>
+          </div>
+          <div>
+            <div class="page-title"><span class="en">Kanban Board</span><span class="ar" style="display:none">لوحة كانبان</span></div>
+            <div class="page-subtitle"><span class="en">Visualize your workflow</span><span class="ar" style="display:none">تتبع سير العمل</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="kanban-board" id="kanban-board"></div>
+    </div>
+
+    <div class="page" id="page-pomodoro">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div>
+            <div class="page-title"><span class="en">Pomodoro Timer</span><span class="ar" style="display:none">عداد بومودورو</span></div>
+            <div class="page-subtitle"><span class="en">Stay focused, take breaks</span><span class="ar" style="display:none">ابقَ مركزاً واسترح</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pomo-wrap">
+        <div class="pomo-tabs">
+          <button class="pomo-tab active" id="tab-work" onclick="setPomoMode('work',this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
+            <span class="en">Focus</span><span class="ar" style="display:none">تركيز</span>
+          </button>
+          <button class="pomo-tab" id="tab-short" onclick="setPomoMode('short',this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" y1="2" x2="6" y2="4"></line><line x1="10" y1="2" x2="10" y2="4"></line><line x1="14" y1="2" x2="14" y2="4"></line></svg>
+            <span class="en">Short Break</span><span class="ar" style="display:none">استراحة قصيرة</span>
+          </button>
+          <button class="pomo-tab" id="tab-long" onclick="setPomoMode('long',this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+            <span class="en">Long Break</span><span class="ar" style="display:none">استراحة طويلة</span>
+          </button>
+        </div>
+
+        <div class="pomo-ring-wrap">
+          <div class="pomo-ring-container">
+            <svg class="ring-svg" viewBox="0 0 250 250">
+              <defs>
+                <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6d28d9"/>
+                  <stop offset="100%" style="stop-color:#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="125" cy="125" r="113"/>
+              <circle class="ring-fill" id="ring-fill" cx="125" cy="125" r="113" stroke-dasharray="709.9" stroke-dashoffset="0"/>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-time" id="pomo-time">25:00</div>
+              <div class="ring-mode" id="pomo-mode-lbl"><span class="en">FOCUS</span><span class="ar" style="display:none">تركيز</span></div>
+              <div class="ring-session" id="pomo-session">Session #1</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pomo-btns">
+          <button class="pomo-ctrl pomo-ctrl-sec" onclick="resetPomo()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c6fa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-4.5"></path></svg>
+          </button>
+          <button class="pomo-ctrl pomo-ctrl-main" id="pomo-main" onclick="togglePomo()">
+            <svg id="pomo-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#fff" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+          <button class="pomo-ctrl pomo-ctrl-sec" onclick="skipPomo()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c6fa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+          </button>
+        </div>
+
+        <div class="pomo-card">
+          <div class="pomo-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c6fa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            <span class="en">Settings</span><span class="ar" style="display:none">الإعدادات</span>
+          </div>
+          <div class="settings-grid">
+            <div class="setting-row">
+              <label><span><span class="en">Focus</span><span class="ar" style="display:none">تركيز</span></span> <span class="val" id="val-work">25</span> min</label>
+              <input type="range" min="5" max="60" step="5" value="25" oninput="updateDur('work',this.value)">
+            </div>
+            <div class="setting-row">
+              <label><span><span class="en">Short Break</span><span class="ar" style="display:none">استراحة قصيرة</span></span> <span class="val" id="val-short">5</span> min</label>
+              <input type="range" min="1" max="15" step="1" value="5" oninput="updateDur('short',this.value)">
+            </div>
+            <div class="setting-row">
+              <label><span><span class="en">Long Break</span><span class="ar" style="display:none">استراحة طويلة</span></span> <span class="val" id="val-long">15</span> min</label>
+              <input type="range" min="5" max="30" step="5" value="15" oninput="updateDur('long',this.value)">
+            </div>
+            <div class="setting-row">
+              <label><span><span class="en">Sessions</span><span class="ar" style="display:none">جلسات</span></span> <span class="val" id="val-sessions">4</span></label>
+              <input type="range" min="2" max="8" step="1" value="4" oninput="updateSessions(this.value)">
+            </div>
+          </div>
+        </div>
+
+        <div class="pomo-card">
+          <div class="pomo-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c6fa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span class="en">Today's Sessions</span><span class="ar" style="display:none">جلسات اليوم</span>
+          </div>
+          <div class="pomo-dots" id="pomo-dots">
+            <span style="font-size:12px;color:var(--w4)"><span class="en">No sessions yet</span><span class="ar" style="display:none">لا توجد جلسات بعد</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<nav class="mob-bar">
+  <div class="mob-bar-items">
+    <button class="mob-item active" onclick="switchPage('todo',this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+      <span class="en">Tasks</span><span class="ar" style="display:none">مهام</span>
+    </button>
+    <button class="mob-item" onclick="switchPage('kanban',this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="18"></rect><rect x="10" y="3" width="5" height="11"></rect><rect x="17" y="3" width="4" height="7"></rect></svg>
+      <span class="en">Kanban</span><span class="ar" style="display:none">كانبان</span>
+    </button>
+    <button class="mob-item" onclick="switchPage('pomodoro',this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span class="en">Pomodoro</span><span class="ar" style="display:none">بومودورو</span>
+    </button>
+  </div>
+</nav>
+
+<div class="overlay" id="todo-overlay">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-title"><span class="en">New Task</span><span class="ar" style="display:none">مهمة جديدة</span></div>
+      <button class="modal-x" onclick="closeModal('todo-overlay')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="field">
+      <label><span class="en">Task name</span><span class="ar" style="display:none">اسم المهمة</span></label>
+      <input class="fi" id="todo-input" placeholder="What needs to be done?" data-placeholder-en="What needs to be done?" data-placeholder-ar="ما الذي تريد إنجازه؟" autocomplete="off">
+    </div>
+    <div class="field">
+      <label><span class="en">Priority</span><span class="ar" style="display:none">الأولوية</span></label>
+      <select class="fi" id="todo-priority">
+        <option value="high" data-en="High" data-ar="عالية">High — عالية</option>
+        <option value="medium" selected data-en="Medium" data-ar="متوسطة">Medium — متوسطة</option>
+        <option value="low" data-en="Low" data-ar="منخفضة">Low — منخفضة</option>
+      </select>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal('todo-overlay')"><span class="en">Cancel</span><span class="ar" style="display:none">إلغاء</span></button>
+      <button class="btn btn-primary" onclick="addTodo()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span class="en">Add Task</span><span class="ar" style="display:none">إضافة</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg id="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  <span id="toast-msg"></span>
+</div>
+
+<script src="./app.js" defer></script>
+</body>
+</html>
